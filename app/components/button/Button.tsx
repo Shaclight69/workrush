@@ -31,7 +31,7 @@ function Button({
   border,
   color,
 }: Props) {
-  const { theme } = useGlobalState();
+  const { currentTheme } = useGlobalState();
 
   return (
     <ButtonStyled
@@ -43,9 +43,9 @@ function Button({
         fontWeight: fw || "500",
         fontSize: fs,
         border: border || "none",
-        color: color || theme.colorGrey0,
+        color: color || currentTheme.colorGrey0,
       }}
-      theme={theme}
+      theme={currentTheme}
       onClick={click}
     >
       {icon && icon}

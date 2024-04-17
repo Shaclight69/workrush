@@ -12,7 +12,8 @@ import { UserButton, useClerk, useUser } from "@clerk/nextjs";
 import Button from "../button/Button";
 
 function Sidebar() {
-  const { theme, collapsed, collapseMenu } = useGlobalState();
+  const { currentTheme, toggleTheme, collapsed, collapseMenu } =
+    useGlobalState();
   const { signOut } = useClerk();
 
   const { user } = useUser();
@@ -31,7 +32,7 @@ function Sidebar() {
   };
 
   return (
-    <SidebarStyled theme={theme} collapsed={collapsed}>
+    <SidebarStyled theme={currentTheme} collapsed={collapsed}>
       <button className="toggle-nav" onClick={collapseMenu}>
         {collapsed ? bars : arrowLeft}
       </button>
@@ -63,12 +64,14 @@ function Sidebar() {
             </li>
           );
         })}
+
+        <button onClick={toggleTheme}>toggleTheme</button>
       </ul>
       <div className="sign-out relative m-6">
         <Button
           name={"Sign Out"}
           type={"submit"}
-          padding={"0.4rem 0.8rem"}
+          padding={"0.4rem 1.6rem"}
           borderRad={"0.8rem"}
           fw={"500"}
           fs={"1.2rem"}

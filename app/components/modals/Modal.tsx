@@ -10,9 +10,9 @@ interface Props {
 function Modal({ content }: Props) {
   const { closeModal } = useGlobalState();
 
-  const { theme } = useGlobalState();
+  const { currentTheme } = useGlobalState();
   return (
-    <ModalStyled theme={theme}>
+    <ModalStyled theme={currentTheme}>
       <div className="modal-overlay" onClick={closeModal}></div>
       <div className="modal-content">{content}</div>
     </ModalStyled>

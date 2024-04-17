@@ -2,10 +2,11 @@
 import { useGlobalState } from "@/app/context/globalProvider";
 import React from "react";
 import styled from "styled-components";
-import { add, plus } from "@/app/utils/Icons";
+import { add, plus, sun, moon, heart } from "@/app/utils/Icons";
 import Modal from "../modals/Modal";
 import TaskItem from "../taskItem/TaskItem";
-import CreateContent from "../modals/CreateContext";
+import CreateContent from "../modals/CreateContent";
+import { FaMoon, FaSun } from "react-icons/fa";
 
 interface Props {
   title: string;
@@ -13,16 +14,22 @@ interface Props {
 }
 
 function Tasks({ title, tasks }: Props) {
-  const { theme, isLoading, openModal, modal } = useGlobalState();
+  const { currentTheme, toggleTheme, isLoading, openModal, modal } =
+    useGlobalState();
 
   return (
-    <TaskStyled theme={theme}>
+    <TaskStyled theme={currentTheme}>
       {modal && <Modal content={<CreateContent />} />}
       <h1>{title}</h1>
 
-      <button className="btn-rounded" onClick={openModal}>
-        {plus}
-      </button>
+      <div className="flex justify-end gap-x-2 ">
+        <button className="btn-rounded" onClick={openModal}>
+          {plus}
+        </button>
+        <button className="btn-rounded" onClick={toggleTheme}>
+          {currentTheme.name === "default" ? <FaMoon /> : <FaSun />}
+        </button>
+      </div>
 
       <div className="tasks grid">
         {tasks.map((task) => (
@@ -32,6 +39,7 @@ function Tasks({ title, tasks }: Props) {
             description={task.description}
             date={task.date}
             isCompleted={task.isCompleted}
+            isImportant={task.isImportant}
             id={task.id}
           />
         ))}
@@ -53,14 +61,14 @@ const TaskStyled = styled.main`
   border-radius: 1rem;
   height: 100%;
 
-  overflow-y: auto;
+  overflow-y: hidden;
 
   &::-webkit-scrollbar {
     width: 0.5rem;
   }
 
   .btn-rounded {
-    position: fixed;
+    /* position: fixed; */
     top: 4.9rem;
     right: 5.1rem;
     width: 3rem;
@@ -85,6 +93,11 @@ const TaskStyled = styled.main`
 
   .tasks {
     margin: 2rem 0;
+  }
+
+  > h2 {
+    font-size: 800px;
+    font-weight: 800;
   }
 
   > h1 {

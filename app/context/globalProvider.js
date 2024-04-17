@@ -11,8 +11,9 @@ export const GlobalUpdateContext = createContext();
 export const GlobalProvider = ({ children }) => {
   const user = useUser();
 
-  const [selectedTheme, setSelectedTheme] = useState(0);
-  const theme = themes[selectedTheme];
+  const [currentTheme, setCurrentTheme] = useState(themes[0]);
+  // const theme = themes[selectedTheme];
+  // const theme = selectedTheme;
 
   const [isLoading, setIsLoading] = useState(false);
   const [tasks, setTasks] = useState([]);
@@ -29,6 +30,18 @@ export const GlobalProvider = ({ children }) => {
 
   const collapseMenu = () => {
     setCollapsed(!collapsed);
+  };
+
+  const toggleTheme = () => {
+    // switch (selectedTheme) {
+    //   case 0:
+    //     setSelectedTheme(1);
+    //     break;
+    //   case 1:
+    //     setSelectedTheme(0);
+    //     break;
+    // }
+    setCurrentTheme(currentTheme === themes[0] ? themes[1] : themes[0]);
   };
 
   const allTasks = async () => {
@@ -78,7 +91,8 @@ export const GlobalProvider = ({ children }) => {
   return (
     <GlobalContext.Provider
       value={{
-        theme,
+        currentTheme,
+        toggleTheme,
         tasks,
         deleteTask,
         isLoading,

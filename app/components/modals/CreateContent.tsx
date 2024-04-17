@@ -14,7 +14,7 @@ function CreateContent() {
   const [completed, setCompleted] = useState(false);
   const [important, setImportant] = useState(false);
 
-  const { theme, allTasks, closeModal } = useGlobalState();
+  const { currentTheme, allTasks, closeModal } = useGlobalState();
 
   const handleChange = (name: string) => (e: any) => {
     switch (name) {
@@ -68,7 +68,7 @@ function CreateContent() {
   };
 
   return (
-    <CreateContentStyled onSubmit={handleSubmit} theme={theme}>
+    <CreateContentStyled onSubmit={handleSubmit} theme={currentTheme}>
       <h1>Create a Task</h1>
       <div className="input-control">
         <label htmlFor="title">Title</label>

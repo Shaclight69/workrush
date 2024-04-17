@@ -10,17 +10,26 @@ interface Props {
   description: string;
   date: string;
   isCompleted: boolean;
+  isImportant: boolean;
   id: string;
 }
 
-function TaskItem({ title, description, date, isCompleted, id }: Props) {
-  const { theme, deleteTask, updateTask } = useGlobalState();
+function TaskItem({
+  title,
+  description,
+  date,
+  isCompleted,
+  isImportant,
+  id,
+}: Props) {
+  const { currentTheme, deleteTask, updateTask } = useGlobalState();
   return (
-    <TaskItemStyled theme={theme}>
+    <TaskItemStyled theme={currentTheme}>
       <h1>{title}</h1>
       <p>{description}</p>
       <p className="date">{formatDate(date)}</p>
       <div className="task-footer">
+        {isImportant ? <button className="important">Important</button> : null}
         {isCompleted ? (
           <button
             className="completed"
@@ -115,6 +124,9 @@ const TaskItemStyled = styled.div`
 
     .completed {
       background: ${(props) => props.theme.colorGreenDark} !important;
+    }
+    .important {
+      background: #fe6854;
     }
   }
 `;

@@ -12,13 +12,15 @@ export const GlobalProvider = ({ children }) => {
   const user = useUser();
 
   const [currentTheme, setCurrentTheme] = useState(themes[0]);
-  // const theme = themes[selectedTheme];
-  // const theme = selectedTheme;
 
   const [isLoading, setIsLoading] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [modal, setModal] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
+
+  useEffect(() => {
+    document.body.style.backgroundColor = currentTheme.colorSecBg;
+  }, [currentTheme]);
 
   const openModal = () => {
     setModal(true);
@@ -33,14 +35,6 @@ export const GlobalProvider = ({ children }) => {
   };
 
   const toggleTheme = () => {
-    // switch (selectedTheme) {
-    //   case 0:
-    //     setSelectedTheme(1);
-    //     break;
-    //   case 1:
-    //     setSelectedTheme(0);
-    //     break;
-    // }
     setCurrentTheme(currentTheme === themes[0] ? themes[1] : themes[0]);
   };
 

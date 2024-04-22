@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 :root {
+  --fore: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+/* Set CSS variables based on the selected theme */
+:root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -21,7 +27,6 @@ body {
   background-color: #181818;
   font-size: 17px;
   color: #fff;
-
   height: 100vh;
 }
 

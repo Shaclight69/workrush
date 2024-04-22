@@ -76,17 +76,24 @@ function TaskItem({
 const TaskItemStyled = styled.div`
   padding: 1.2rem 1rem;
   border-radius: 1rem;
-  background-color: ${(props) => props.theme.borderColor2};
+  background-color: ${(props) => props.theme.colorItem};
   box-shadow: ${(props) => props.theme.shadow7};
-  border: 2px solid ${(props) => props.theme.borderColor2};
+  border: 2px solid ${(props) => props.theme.borderColor};
 
   height: 16rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 
+  h1,
+  p,
+  .date {
+    color: ${(props) => props.theme.colorReverse};
+  }
+
   .date {
     margin-top: auto;
+    color: ${(props) => props.theme.colorReverse};
   }
 
   > h1 {

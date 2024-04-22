@@ -51,7 +51,7 @@ const ModalStyled = styled.div`
     z-index: 100;
 
     border-radius: 1rem;
-    background-color: ${(props) => props.theme.colorBg2};
+    background-color: ${(props) => props.theme.colorMainBg};
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
     border-radius: ${(props) => props.theme.borderRadiusMd2};
 

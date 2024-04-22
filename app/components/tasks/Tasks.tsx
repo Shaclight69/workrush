@@ -56,8 +56,8 @@ const TaskStyled = styled.main`
   position: relative;
   padding: 2rem;
   width: 100%;
-  background-color: ${(props) => props.theme.colorBg2};
-  border: 2px solid ${(props) => props.theme.borderColor2};
+  background-color: ${(props) => props.theme.colorMainBg};
+  border: 2px solid ${(props) => props.theme.borderColor};
   border-radius: 1rem;
   height: 100%;
 
@@ -75,9 +75,9 @@ const TaskStyled = styled.main`
     height: 3rem;
     border-radius: 50%;
 
-    background-color: ${(props) => props.theme.colorBg};
-    border: 2px solid ${(props) => props.theme.borderColor2};
-    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+    /* background-color: ${(props) => props.theme.colorBg}; */
+    border: 2px solid ${(props) => props.theme.borderColor};
+    box-shadow: ${(props) => props.theme.shadow7};
     color: ${(props) => props.theme.colorGrey2};
     font-size: 1.4rem;
 
@@ -101,6 +101,7 @@ const TaskStyled = styled.main`
   }
 
   > h1 {
+    color: ${(props) => props.theme.colorReverse};
     font-size: clamp(1.5rem, 2vw, 2rem);
     font-weight: 800;
     position: relative;

@@ -64,8 +64,6 @@ function Sidebar() {
             </li>
           );
         })}
-
-        <button onClick={toggleTheme}>toggleTheme</button>
       </ul>
       <div className="sign-out relative m-6">
         <Button
@@ -88,8 +86,8 @@ function Sidebar() {
 const SidebarStyled = styled.nav<{ collapsed: boolean }>`
   position: relative;
   width: ${(props) => props.theme.sidebarWidth};
-  background-color: ${(props) => props.theme.colorBg2};
-  border: 2px solid ${(props) => props.theme.borderColor2};
+  background-color: ${(props) => props.theme.colorMainBg};
+  border: 2px solid ${(props) => props.theme.borderColor};
   border-radius: 1rem;
 
   display: flex;
@@ -122,10 +120,10 @@ const SidebarStyled = styled.nav<{ collapsed: boolean }>`
     border-top-right-radius: 1rem;
     border-bottom-right-radius: 1rem;
 
-    background-color: ${(props) => props.theme.colorBg2};
-    border-right: 2px solid ${(props) => props.theme.borderColor2};
-    border-top: 2px solid ${(props) => props.theme.borderColor2};
-    border-bottom: 2px solid ${(props) => props.theme.borderColor2};
+    background-color: ${(props) => props.theme.colorMainBg};
+    border-right: 2px solid ${(props) => props.theme.borderColor};
+    border-top: 2px solid ${(props) => props.theme.borderColor};
+    border-bottom: 2px solid ${(props) => props.theme.borderColor};
   }
 
   .user-btn {
@@ -150,7 +148,6 @@ const SidebarStyled = styled.nav<{ collapsed: boolean }>`
     margin: 1.5rem;
     padding: 1rem 0.8rem;
     position: relative;
-
     border-radius: 1rem;
     cursor: pointer;
 
@@ -168,10 +165,10 @@ const SidebarStyled = styled.nav<{ collapsed: boolean }>`
       height: 100%;
       backdrop-filter: blur(10px);
       z-index: 0;
-      background: ${(props) => props.theme.colorBg3};
+      background: ${(props) => props.theme.colorSecBg};
       transition: all 0.55s linear;
       border-radius: 1rem;
-      border: 2px solid ${(props) => props.theme.borderColor2};
+      border: 2px solid ${(props) => props.theme.borderColor};
 
       opacity: 0.2;
     }
@@ -215,7 +212,7 @@ const SidebarStyled = styled.nav<{ collapsed: boolean }>`
     &:hover {
       .profile-overlay {
         opacity: 1;
-        border: 2px solid ${(props) => props.theme.borderColor2};
+        border: 2px solid ${(props) => props.theme.borderColor};
       }
 
       img {
@@ -223,7 +220,9 @@ const SidebarStyled = styled.nav<{ collapsed: boolean }>`
       }
     }
   }
-
+  .capitalize {
+    color: ${(props) => props.theme.colorReverse};
+  }
   .nav-item {
     position: relative;
     padding: 0.8rem 1rem 0.9rem 2.1rem;

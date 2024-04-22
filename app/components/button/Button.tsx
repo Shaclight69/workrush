@@ -43,7 +43,7 @@ function Button({
         fontWeight: fw || "500",
         fontSize: fs,
         border: border || "none",
-        color: color || currentTheme.colorGrey0,
+        color: color || currentTheme.colorReverse,
       }}
       theme={currentTheme}
       onClick={click}
@@ -59,6 +59,7 @@ const ButtonStyled = styled.button`
   display: flex;
   align-items: center;
   color: ${(props) => props.theme.colorGrey2};
+
   z-index: 5;
   cursor: pointer;
 
@@ -67,6 +68,7 @@ const ButtonStyled = styled.button`
   i {
     margin-right: 1rem;
     color: ${(props) => props.theme.colorGrey2};
+
     font-size: 1.5rem;
     transition: all 0.55s ease-in-out;
   }

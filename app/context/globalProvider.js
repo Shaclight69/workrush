@@ -57,17 +57,43 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
+  // const getTask = async (id) => {
+  //   setIsLoading(true);
+  //   try {
+  //     const res = await axios.get(`/api/tasks/${id}`);
+  //     setTask(res.data);
+  //     console.log(res);
+  //     setIsLoading(false);
+  //   } catch (error) {
+  //     toast.error("Error fetching task data.");
+  //     console.log(error);
+  //     setIsLoading(false);
+  //   }
+  // };
+
   const getTask = async (id) => {
     setIsLoading(true);
-    try {
-      const res = await axios.get(`/api/tasks/${id}`);
-      setTask(res.data);
-      console.log(res);
-      setIsLoading(false);
-    } catch (error) {
-      toast.error("Error fetching task data.");
-      console.log(error);
+    const MAX_RETRIES = 3; // Maximum number of retry attempts
+    const RETRY_DELAY = 1000; // Delay between retry attempts in milliseconds
+    let retries = 0;
+
+    while (retries < MAX_RETRIES) {
+      try {
+        const res = await axios.get(`/api/tasks/${id}`);
+        setTask(res.data);
+        console.log(res);
+        setIsLoading(false);
+        return; // Exit the function after successful response
+      } catch (error) {
+        retries++;
+        console.error("Error fetching task data. Retrying...", error);
+        await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY)); // Wait before retrying
+      }
     }
+
+    // If maximum retries reached without success
+    setIsLoading(false);
+    toast.error("Failed to fetch task data. Please try again later.");
   };
 
   const editTask = async (task) => {

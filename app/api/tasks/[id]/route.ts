@@ -92,6 +92,30 @@ export async function PUT(
   }
 }
 
+// export async function GET(req: Request) {
+//   try {
+//     const { userId } = auth();
+
+//     if (!userId) {
+//       return NextResponse.json({ error: "Unauthorized", status: 401 });
+//     }
+
+//     const tasks = await prisma.task.findMany({
+//       where: {
+//         userId,
+//       },
+//     });
+
+//     return NextResponse.json(tasks);
+//   } catch (error) {
+//     console.log("ERROR GETTING TASKS: ", error);
+//     return NextResponse.json({
+//       error: "Error getting task",
+//       status: 500,
+//     });
+//   }
+// }
+
 export async function GET(
   req: Request,
   { params }: { params: { id: string } }
@@ -104,7 +128,7 @@ export async function GET(
       return NextResponse.json({ error: "Unauthorized", status: 401 });
     }
 
-    const task = await prisma.task.findFirst({
+    const task = await prisma.task.findUnique({
       where: {
         id,
       },

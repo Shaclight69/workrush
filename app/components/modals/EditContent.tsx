@@ -29,7 +29,9 @@ function EditContent(id: any) {
   };
 
   useEffect(() => {
-    getTask(id);
+    if (id) {
+      getTask(id);
+    }
   }, [id]);
 
   return (

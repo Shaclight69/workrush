@@ -205,7 +205,7 @@ const SidebarStyled = styled.nav<{ collapsed: boolean }>`
 
     > h1 {
       margin-left: 0.8rem;
-      font-size: clamp(1.2rem, 4vw, 1.4rem);
+      font-size: clamp(1.2rem, 1.3vw, 1.4rem);
       line-height: 100%;
     }
 
@@ -223,6 +223,7 @@ const SidebarStyled = styled.nav<{ collapsed: boolean }>`
   .capitalize {
     color: ${(props) => props.theme.colorReverse};
   }
+
   .nav-item {
     position: relative;
     padding: 0.8rem 1rem 0.9rem 2.1rem;
@@ -232,6 +233,7 @@ const SidebarStyled = styled.nav<{ collapsed: boolean }>`
     grid-template-columns: 40px 1fr;
     cursor: pointer;
     align-items: center;
+    z-index: 1;
 
     &::after {
       position: absolute;
@@ -241,7 +243,7 @@ const SidebarStyled = styled.nav<{ collapsed: boolean }>`
       width: 0;
       height: 100%;
       background-color: ${(props) => props.theme.activeNavLinkHover};
-      z-index: 1;
+      z-index: -1;
       transition: all 0.3s ease-in-out;
     }
 
@@ -269,6 +271,7 @@ const SidebarStyled = styled.nav<{ collapsed: boolean }>`
       display: flex;
       align-items: center;
       color: ${(props) => props.theme.colorIcons};
+      z-index: 2;
     }
 
     &:hover {

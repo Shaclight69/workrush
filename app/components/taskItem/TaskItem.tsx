@@ -1,9 +1,11 @@
 "use client";
 import { useGlobalState } from "@/app/context/globalProvider";
-import { edit, trash } from "@/app/utils/Icons";
+import { edit, trash, important } from "@/app/utils/Icons";
 import React from "react";
 import styled from "styled-components";
 import formatDate from "@/app/utils/formatDate";
+import { FaExclamationCircle } from "react-icons/fa";
+import { AiFillExclamationCircle } from "react-icons/ai";
 
 interface Props {
   title: string;
@@ -29,7 +31,6 @@ function TaskItem({
       <p>{description}</p>
       <p className="date">{formatDate(date)}</p>
       <div className="task-footer">
-        {isImportant ? <button className="important">Important</button> : null}
         {isCompleted ? (
           <button
             className="completed"
@@ -59,6 +60,17 @@ function TaskItem({
             Incomplete
           </button>
         )}
+
+        {isImportant ? (
+          <AiFillExclamationCircle
+            className="important"
+            style={{
+              color: "#fcbf49",
+              fontSize: "2rem",
+            }}
+          />
+        ) : null}
+
         <button className="edit">{edit}</button>
         <button
           className="delete"
@@ -104,7 +116,7 @@ const TaskItemStyled = styled.div`
   .task-footer {
     display: flex;
     align-items: center;
-    gap: 1.2rem;
+    gap: 0.8rem;
 
     button {
       border: none;
@@ -131,9 +143,6 @@ const TaskItemStyled = styled.div`
 
     .completed {
       background: ${(props) => props.theme.colorGreenDark} !important;
-    }
-    .important {
-      background: #fe6854;
     }
   }
 `;

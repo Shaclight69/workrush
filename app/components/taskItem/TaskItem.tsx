@@ -6,6 +6,8 @@ import styled from "styled-components";
 import formatDate from "@/app/utils/formatDate";
 import { FaExclamationCircle } from "react-icons/fa";
 import { AiFillExclamationCircle } from "react-icons/ai";
+import EditContent from "../modals/EditContent";
+import Modal from "../modals/Modal";
 
 interface Props {
   title: string;
@@ -24,9 +26,11 @@ function TaskItem({
   isImportant,
   id,
 }: Props) {
-  const { currentTheme, deleteTask, updateTask } = useGlobalState();
+  const { currentTheme, deleteTask, updateTask, modal, openModal } =
+    useGlobalState();
   return (
     <TaskItemStyled theme={currentTheme}>
+      {modal && <Modal content={<EditContent id={id} />} />}
       <h1>{title}</h1>
       <p>{description}</p>
       <p className="date">{formatDate(date)}</p>
@@ -71,7 +75,9 @@ function TaskItem({
           />
         ) : null}
 
-        <button className="edit">{edit}</button>
+        <button className="edit" onClick={openModal}>
+          {edit}
+        </button>
         <button
           className="delete"
           onClick={() => {

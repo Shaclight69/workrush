@@ -18,6 +18,14 @@ export const GlobalProvider = ({ children }) => {
   const [modal, setModal] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
 
+  const [task, setTask] = useState({
+    title: "",
+    description: "",
+    date: "",
+    completed: false,
+    important: false,
+  });
+
   useEffect(() => {
     document.body.style.backgroundColor = currentTheme.colorSecBg;
   }, [currentTheme]);
@@ -45,6 +53,41 @@ export const GlobalProvider = ({ children }) => {
       setTasks(res.data);
       setIsLoading(false);
     } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTask = async (id) => {
+    setIsLoading(true);
+    try {
+      const res = await axios.get(`/api/tasks/${id}`);
+      setTask(res.data);
+      console.log(res);
+      setIsLoading(false);
+    } catch (error) {
+      toast.error("Error fetching task data.");
+      console.log(error);
+    }
+  };
+
+  const editTask = async (task) => {
+    setIsLoading(true);
+    try {
+      const res = await axios.put(`/api/tasks/${id}`, task);
+
+      if (res.data.error) {
+        toast.error(res.data.error);
+      }
+
+      if (!res.data.error) {
+        toast.success("Task updated successfully.");
+
+        setIsLoading(false);
+        closeModal();
+        allTasks();
+      }
+    } catch (error) {
+      toast.error("Something went wrong.");
       console.log(error);
     }
   };
@@ -100,6 +143,8 @@ export const GlobalProvider = ({ children }) => {
         allTasks,
         collapsed,
         collapseMenu,
+        getTask,
+        editTask,
       }}
     >
       <GlobalUpdateContext.Provider value={{}}>

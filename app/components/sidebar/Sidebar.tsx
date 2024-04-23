@@ -12,10 +12,8 @@ import { UserButton, useClerk, useUser } from "@clerk/nextjs";
 import Button from "../button/Button";
 
 function Sidebar() {
-  const { currentTheme, toggleTheme, collapsed, collapseMenu } =
-    useGlobalState();
+  const { currentTheme, collapsed, collapseMenu } = useGlobalState();
   const { signOut } = useClerk();
-
   const { user } = useUser();
 
   const { firstName, lastName, imageUrl } = user || {

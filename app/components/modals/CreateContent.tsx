@@ -14,7 +14,7 @@ function CreateContent() {
   const [completed, setCompleted] = useState(false);
   const [important, setImportant] = useState(false);
 
-  const { currentTheme, allTasks, closeModal } = useGlobalState();
+  const { currentTheme, allTasks, closeAddModal } = useGlobalState();
 
   const handleChange = (name: string) => (e: any) => {
     switch (name) {
@@ -59,7 +59,7 @@ function CreateContent() {
       if (!res.data.error) {
         toast.success("Task created successfully.");
         allTasks();
-        closeModal();
+        closeAddModal();
       }
     } catch (error) {
       toast.error("Something went wrong.");
@@ -69,7 +69,7 @@ function CreateContent() {
 
   return (
     <CreateContentStyled onSubmit={handleSubmit} theme={currentTheme}>
-      <h1>Create a Task</h1>
+      <h2>Create a Task</h2>
       <div className="input-control">
         <label htmlFor="title">Title</label>
         <input
@@ -132,7 +132,7 @@ function CreateContent() {
           borderRad={"0.8rem"}
           fw={"500"}
           fs={"1.2rem"}
-          background={"rgb(0, 163, 255)"}
+          background={"#14452f"}
         />
       </div>
     </CreateContentStyled>
@@ -140,9 +140,10 @@ function CreateContent() {
 }
 
 const CreateContentStyled = styled.form`
-  > h1 {
-    font-size: clamp(1.2rem, 5vw, 1.6rem);
-    font-weight: 600;
+  > h2 {
+    font-size: clamp(1.5rem, 2vw, 2rem);
+    font-weight: 800;
+    color: ${(props) => props.theme.colorReverse};
   }
 
   color: ${(props) => props.theme.colorGrey1};
@@ -160,6 +161,7 @@ const CreateContentStyled = styled.form`
       margin-bottom: 0.5rem;
       display: inline-block;
       font-size: clamp(0.9rem, 5vw, 1.2rem);
+      color: ${(props) => props.theme.colorReverse};
 
       span {
         color: ${(props) => props.theme.colorGrey3};
@@ -172,14 +174,15 @@ const CreateContentStyled = styled.form`
       padding: 1rem;
 
       resize: none;
-      background-color: ${(props) => props.theme.colorGreyDark};
-      color: ${(props) => props.theme.colorGrey2};
+      background-color: ${(props) => props.theme.colorSecBg};
+      color: ${(props) => props.theme.colorGrey3} !important;
       border-radius: 0.5rem;
     }
   }
 
   .submit-btn button {
     transition: all 0.35s ease-in-out;
+    color: ${(props) => props.theme.colorWhite} !important;
 
     @media screen and (max-width: 500px) {
       font-size: 0.9rem !important;
@@ -192,7 +195,7 @@ const CreateContentStyled = styled.form`
     }
 
     i {
-      color: ${(props) => props.theme.colorGrey0};
+      color: ${(props) => props.theme.colorWhite};
     }
 
     &:hover {

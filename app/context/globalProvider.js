@@ -4,6 +4,8 @@ import themes from "./theme";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useUser } from "@clerk/nextjs";
+import { getCookie, setCookie } from "cookies-next";
+import path from "path";
 
 export const GlobalContext = createContext();
 export const GlobalUpdateContext = createContext();
@@ -15,19 +17,34 @@ export const GlobalProvider = ({ children }) => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [tasks, setTasks] = useState([]);
-  const [modal, setModal] = useState(false);
+  const [addModal, setAddModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
 
   useEffect(() => {
+    const themeCookie = getCookie("theme");
+    if (themeCookie === "dark") {
+      setCurrentTheme(themes[1]);
+    } else {
+      setCurrentTheme(themes[0]);
+    }
     document.body.style.backgroundColor = currentTheme.colorSecBg;
   }, [currentTheme]);
 
-  const openModal = () => {
-    setModal(true);
+  const openAddModal = () => {
+    setAddModal(true);
   };
 
-  const closeModal = () => {
-    setModal(false);
+  const closeAddModal = () => {
+    setAddModal(false);
+  };
+
+  const openDeleteModal = () => {
+    setDeleteModal(true);
+  };
+
+  const closeDeleteModal = () => {
+    setDeleteModal(false);
   };
 
   const collapseMenu = () => {
@@ -35,7 +52,9 @@ export const GlobalProvider = ({ children }) => {
   };
 
   const toggleTheme = () => {
-    setCurrentTheme(currentTheme === themes[0] ? themes[1] : themes[0]);
+    const newTheme = currentTheme === themes[0] ? themes[1] : themes[0];
+    setCurrentTheme(newTheme);
+    setCookie("theme", currentTheme.name, { maxAge: 30 * 24 * 60 * 60 * 1000 });
   };
 
   const allTasks = async () => {
@@ -57,7 +76,7 @@ export const GlobalProvider = ({ children }) => {
       allTasks();
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong");
+      toast.error(error);
     }
   };
 
@@ -94,9 +113,12 @@ export const GlobalProvider = ({ children }) => {
         importantTasks,
         incompleteTasks,
         updateTask,
-        modal,
-        openModal,
-        closeModal,
+        addModal,
+        deleteModal,
+        openAddModal,
+        closeAddModal,
+        openDeleteModal,
+        closeDeleteModal,
         allTasks,
         collapsed,
         collapseMenu,

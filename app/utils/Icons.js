@@ -19,10 +19,13 @@ export const edit = <i className="fa-solid fa-file-pen"></i>;
 export const users = <i className="fa-solid fa-user-group"></i>;
 export const todo = <i className="fa-solid fa-clipboard-list"></i>;
 export const down = <i className="fa-solid fa-caret-down"></i>;
-export const trash = <i className="fa-solid fa-trash"></i>;
+export const trash = <i className="fa-solid fa-trash-can"></i>;
 export const admin = <i className="fa-solid fa-lock"></i>;
 export const linked = <i className="fa-brands fa-linkedin"></i>;
 export const mailIcon = <i className="fa-solid fa-envelope"></i>;
+
 export const plus = <i className="fa-solid fa-plus fa-beat-fade"></i>;
 export const important = <i class="fa fa-exclamation-circle"></i>;
 export const sun = <i className="fa-solid fa-"></i>;
+export const deleted = <i class="fa-solid fa-square-minus"></i>;
+export const cancel = <i class="fa-solid fa-ban"></i>;

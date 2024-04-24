@@ -5,11 +5,11 @@ import styled from "styled-components";
 
 interface Props {
   content: React.ReactNode;
+  id?: string;
+  closeModal: () => void;
 }
 
-function Modal({ content }: Props) {
-  const { closeModal } = useGlobalState();
-
+function Modal({ content, id, closeModal }: Props) {
   const { currentTheme } = useGlobalState();
   return (
     <ModalStyled theme={currentTheme}>

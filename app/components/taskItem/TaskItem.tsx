@@ -6,6 +6,8 @@ import styled from "styled-components";
 import formatDate from "@/app/utils/formatDate";
 import { FaExclamationCircle } from "react-icons/fa";
 import { AiFillExclamationCircle } from "react-icons/ai";
+import Modal from "../modals/Modal";
+import DeleteContent from "../modals/DeleteContent";
 
 interface Props {
   title: string;
@@ -24,10 +26,23 @@ function TaskItem({
   isImportant,
   id,
 }: Props) {
-  const { currentTheme, deleteTask, updateTask } = useGlobalState();
+  const {
+    currentTheme,
+    updateTask,
+    openDeleteModal,
+    deleteModal,
+    closeDeleteModal,
+  } = useGlobalState();
   return (
     <TaskItemStyled theme={currentTheme}>
-      <h1>{title}</h1>
+      {deleteModal && (
+        <Modal
+          content={<DeleteContent id={id} />}
+          closeModal={closeDeleteModal}
+        />
+      )}
+
+      <h2>{title}</h2>
       <p>{description}</p>
       <p className="date">{formatDate(date)}</p>
       <div className="task-footer">
@@ -72,12 +87,7 @@ function TaskItem({
         ) : null}
 
         <button className="edit">{edit}</button>
-        <button
-          className="delete"
-          onClick={() => {
-            deleteTask(id);
-          }}
-        >
+        <button className="delete" onClick={openDeleteModal}>
           {trash}
         </button>
       </div>
@@ -108,9 +118,10 @@ const TaskItemStyled = styled.div`
     color: ${(props) => props.theme.colorReverse};
   }
 
-  > h1 {
+  > h2 {
     font-size: 1.5rem;
     font-weight: 600;
+    color: ${(props) => props.theme.colorReverse};
   }
 
   .task-footer {
@@ -131,6 +142,9 @@ const TaskItemStyled = styled.div`
 
     .edit {
       margin-left: auto;
+    }
+    .delete {
+      color: ${(props) => props.theme.colorDanger};
     }
 
     .completed,

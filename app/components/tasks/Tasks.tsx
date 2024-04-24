@@ -14,21 +14,25 @@ interface Props {
 }
 
 function Tasks({ title, tasks }: Props) {
-  const { currentTheme, toggleTheme, isLoading, openModal, modal } =
+  const { currentTheme, toggleTheme, openAddModal, addModal, closeAddModal } =
     useGlobalState();
 
   return (
     <TaskStyled theme={currentTheme}>
-      {modal && <Modal content={<CreateContent />} />}
-      <h1>{title}</h1>
+      {addModal && (
+        <Modal content={<CreateContent />} closeModal={closeAddModal} />
+      )}
+      <div className="top-wrapper">
+        <h1>{title}</h1>
 
-      <div className="flex justify-end gap-x-2 ">
-        <button className="btn-rounded" onClick={openModal}>
-          {plus}
-        </button>
-        <button className="btn-rounded" onClick={toggleTheme}>
-          {currentTheme.name === "default" ? <FaMoon /> : <FaSun />}
-        </button>
+        <div className="flex gap-x-2 ">
+          <button className="btn-rounded" onClick={openAddModal}>
+            {plus}
+          </button>
+          <button className="btn-rounded" onClick={toggleTheme}>
+            {currentTheme.name === "dark" ? <FaMoon /> : <FaSun />}
+          </button>
+        </div>
       </div>
 
       <div className="tasks grid">
@@ -43,7 +47,7 @@ function Tasks({ title, tasks }: Props) {
             id={task.id}
           />
         ))}
-        <button className="create-task" onClick={openModal}>
+        <button className="create-task" onClick={openAddModal}>
           {add}
           Add New Task
         </button>
@@ -60,62 +64,50 @@ const TaskStyled = styled.main`
   border: 2px solid ${(props) => props.theme.borderColor};
   border-radius: 1rem;
   height: 100%;
-
   overflow-y: hidden;
 
   &::-webkit-scrollbar {
     width: 0.5rem;
   }
 
+  .top-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
   .btn-rounded {
-    /* position: fixed; */
-    top: 4.9rem;
-    right: 5.1rem;
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
-
-    /* background-color: ${(props) => props.theme.colorBg}; */
     border: 2px solid ${(props) => props.theme.borderColor};
     box-shadow: ${(props) => props.theme.shadow7};
     color: ${(props) => props.theme.colorGrey2};
     font-size: 1.4rem;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    @media screen and (max-width: 768px) {
-      top: 3rem;
-      right: 3.5rem;
-    }
   }
 
   .tasks {
     margin: 2rem 0;
   }
 
-  > h2 {
-    font-size: 800px;
-    font-weight: 800;
-  }
-
-  > h1 {
+  h1 {
     color: ${(props) => props.theme.colorReverse};
     font-size: clamp(1.5rem, 2vw, 2rem);
     font-weight: 800;
     position: relative;
+  }
 
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: -0.5rem;
-      left: 0;
-      width: 3rem;
-      height: 0.2rem;
-      background-color: ${(props) => props.theme.colorPrimaryGreen};
-      border-radius: 0.5rem;
-    }
+  h1::after {
+    content: "";
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0;
+    width: 3rem;
+    height: 0.2rem;
+    background-color: ${(props) => props.theme.colorPrimaryGreen};
+    border-radius: 0.5rem;
   }
 
   .create-task {
@@ -123,7 +115,6 @@ const TaskStyled = styled.main`
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-
     height: 16rem;
     color: ${(props) => props.theme.colorGrey2};
     font-weight: 600;

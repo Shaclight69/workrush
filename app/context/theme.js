@@ -1,6 +1,6 @@
 const themes = [
   {
-    name: "default",
+    name: "dark",
     colorMainBg: "#212121",
     // colorBg: "#252525",
     colorItem: "rgba(249,249,249, 0.08)",
@@ -42,7 +42,7 @@ const themes = [
     colorMainBg: "#F9F9F9",
     colorSecBg: "#EDEDED",
     borderColor: "#c1c5ce",
-    colorItem: "rgba(249,249,249, 0.08)",
+    colorItem: "#ececec",
     // colorBg: "#fff",
     // colorBg4: "#1A1A1A",
     colorDanger: "#ad2831",
